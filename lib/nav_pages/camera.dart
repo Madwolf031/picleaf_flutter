@@ -175,36 +175,31 @@ class _CameraPageState extends State<cameraPage> {
                                 const SizedBox(height: 20),
                                 SizedBox(
                                     child: Center(
+                                        child: Container(
+                                  width: 250,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(102, 204, 102,
+                                        1.0), // Set the desired background color
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
                                   child: TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SecondPage(
-                                                        plantname:
-                                                            getPlantName())));
-                                      },
-                                      child: const Text(
-                                        "More Info",
-                                        style: TextStyle(
-                                          fontSize: 25,
-                                          fontFamily: 'RobotoMedium',
-                                          shadows: [
-                                            Shadow(
-                                                color: Color.fromARGB(
-                                                    255, 75, 175, 78),
-                                                offset: Offset(0, -5))
-                                          ],
-                                          color: Colors.transparent,
-                                          decoration: TextDecoration.underline,
-                                          decorationColor:
-                                              Color.fromARGB(255, 75, 175, 78),
-                                          decorationThickness: 4,
-                                          decorationStyle:
-                                              TextDecorationStyle.solid,
-                                        ),
-                                      )),
-                                )),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) => SecondPage(
+                                                  plantname: getPlantName())));
+                                    },
+                                    child: const Text(
+                                      "More Info",
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        fontFamily: 'NunitoMedium',
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ))),
                               ],
                             )
                           : Container(),

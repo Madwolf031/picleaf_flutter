@@ -52,7 +52,7 @@ class ListViewCard extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 19,
                         fontFamily: 'RobotoMedium',
-                        color: Color(0xffeeeeee)), // textstyle
+                        color: Colors.white), // textstyle
                   ),
                 ),
               ),

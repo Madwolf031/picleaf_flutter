@@ -67,10 +67,6 @@ android {
     noCompress 'tflite'
     noCompress 'lite'
     }
-    /*dataBinding {
-    enabled = true
-}*/
-
 }
 
 flutter {

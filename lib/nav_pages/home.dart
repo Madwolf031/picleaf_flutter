@@ -200,9 +200,9 @@ class _HomePageState extends State<homePage> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                     margin: const EdgeInsets.symmetric(horizontal: 0),
-                    child: Row(
+                    child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                           child: Text('List of Plants',
                               style: TextStyle(

@@ -21,13 +21,14 @@ class _SecondPageState extends State<SecondPage> {
 
   @override
   Widget build(BuildContext context) {
+    final String pname = widget.plantname;
     return Scaffold(
         appBar: AppBar(
           iconTheme:
               const IconThemeData(color: Color.fromRGBO(102, 204, 102, 1.0)),
           centerTitle: true,
           title: Text(
-            widget.plantname,
+            "Diseases of $pname",
             style: const TextStyle(
                 color: Color.fromRGBO(102, 204, 102, 1.0),
                 fontWeight: FontWeight.bold),

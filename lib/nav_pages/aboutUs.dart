@@ -75,7 +75,7 @@ class AboutUsPage extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 55,
                           backgroundImage:
-                              AssetImage('assets/images/Russel_pic.png'),
+                              AssetImage('assets/images/Russel_pic.jpg'),
                         ),
                       ),
                       Container(
@@ -99,7 +99,7 @@ class AboutUsPage extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 55,
                           backgroundImage:
-                              AssetImage('assets/images/Fritz_pic.png'),
+                              AssetImage('assets/images/Fritz_pic.jpg'),
                         ),
                       ),
                       Container(
@@ -125,7 +125,7 @@ class AboutUsPage extends StatelessWidget {
                   radius: 60,
                   child: CircleAvatar(
                     radius: 55,
-                    backgroundImage: AssetImage('assets/images/JC_pic.png'),
+                    backgroundImage: AssetImage('assets/images/JC_pic.jpg'),
                   ),
                 ),
                 Container(
