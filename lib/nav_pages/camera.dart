@@ -168,12 +168,13 @@ class _CameraPageState extends State<cameraPage> {
                                                     2 -
                                                 32.0, // Adjust the width to be half minus padding
                                             color: const Color.fromRGBO(
-                                                248, 248, 248, 1.0),
+                                                102, 204, 102, 1.0),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
                                               side: const BorderSide(
-                                                color: Colors.white,
+                                                color: Color.fromRGBO(
+                                                    102, 204, 102, 1.0),
                                                 width: 1,
                                               ),
                                             ),
@@ -190,8 +191,7 @@ class _CameraPageState extends State<cameraPage> {
                                               style: TextStyle(
                                                 fontFamily: 'RobotoBold',
                                                 fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    47, 79, 79, 1.0),
+                                                color: Colors.white,
                                               ),
                                             ),
                                           )),
