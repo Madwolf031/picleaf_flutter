@@ -10,12 +10,10 @@ class AboutUsPage extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           "PicLeaf",
-          style: TextStyle(
-              color: Color.fromRGBO(102, 204, 102, 1.0),
-              fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white,
-        shadowColor: const Color.fromARGB(255, 95, 94, 94),
+        backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
+        shadowColor: const Color(0xffeeeeee),
       ),
       backgroundColor: const Color(0xffeeeeee),
       body: SingleChildScrollView(
@@ -45,7 +43,7 @@ class AboutUsPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 18,
                     fontFamily: 'RobotoMedium',
-                    color: Colors.black,
+                    color: Color.fromRGBO(47, 79, 79, 1.0),
                     height: 1.5),
                 textAlign: TextAlign.justify,
               ),
@@ -55,7 +53,7 @@ class AboutUsPage extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: const Text('App Creators',
+              child: const Text('App Creator',
                   style: TextStyle(
                       fontSize: 30,
                       fontFamily: 'RobotoBold',
@@ -70,31 +68,7 @@ class AboutUsPage extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       const CircleAvatar(
-                        backgroundColor: Color.fromRGBO(102, 204, 102, 1.0),
-                        radius: 60,
-                        child: CircleAvatar(
-                          radius: 55,
-                          backgroundImage:
-                              AssetImage('assets/images/Russel_pic.jpg'),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        child: const Text(
-                          'Russel Ivan B. Bataller',
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'RobotoMedium',
-                              color: Colors.black),
-                          textAlign: TextAlign.justify,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      const CircleAvatar(
-                        backgroundColor: Color.fromRGBO(102, 204, 102, 1.0),
+                        backgroundColor: Color.fromRGBO(47, 79, 79, 1.0),
                         radius: 60,
                         child: CircleAvatar(
                           radius: 55,
@@ -109,7 +83,7 @@ class AboutUsPage extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 13,
                               fontFamily: 'RobotoMedium',
-                              color: Colors.black),
+                              color: Color.fromRGBO(47, 79, 79, 1.0)),
                           textAlign: TextAlign.justify,
                         ),
                       ),
@@ -117,29 +91,6 @@ class AboutUsPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            Column(
-              children: <Widget>[
-                const CircleAvatar(
-                  backgroundColor: Color.fromRGBO(102, 204, 102, 1.0),
-                  radius: 60,
-                  child: CircleAvatar(
-                    radius: 55,
-                    backgroundImage: AssetImage('assets/images/JC_pic.jpg'),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                  child: const Text(
-                    'John Carlo P. Hermosa',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontFamily: 'RobotoMedium',
-                        color: Colors.black),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ],
             ),
           ],
         ),

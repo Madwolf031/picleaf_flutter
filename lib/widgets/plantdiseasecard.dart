@@ -9,52 +9,52 @@ class PlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Card(
-        color: const Color.fromRGBO(102, 204, 102, 1.0),
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Column(children: [
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      "${_plantDisplay.title}",
-                      style: const TextStyle(
-                          fontSize: 32.0,
-                          fontFamily: 'RobotoBold',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffeeeeee)),
-                      textAlign: TextAlign.center,
+          child: Column(
+            children: [
+              const SizedBox(height: 5),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        "${_plantDisplay.title}",
+                        style: const TextStyle(
+                            fontSize: 32.0,
+                            fontFamily: 'RobotoBold',
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(47, 79, 79, 1.0)),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text("Causes:",
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      "Causes:",
                       style: TextStyle(
                           fontSize: 25.0,
                           fontFamily: 'RobotoMedium',
-                          color: Color(0xffeeeeee))),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
+                          color: Color.fromRGBO(47, 79, 79, 1.0)),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
                         "${_plantDisplay.cause}",
@@ -62,31 +62,32 @@ class PlantCard extends StatelessWidget {
                             fontSize: 17.0,
                             fontFamily: 'RobotoLight',
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffeeeeee)),
+                            color: Color.fromRGBO(47, 79, 79, 1.0)),
                         textAlign: TextAlign.justify,
-                      )),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text("Treatments:",
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10),
+              const Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      "Treatments:",
                       style: TextStyle(
                           fontSize: 25.0,
                           fontFamily: 'RobotoMedium',
-                          color: Color(0xffeeeeee))),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
+                          color: Color.fromRGBO(47, 79, 79, 1.0)),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
                         "${_plantDisplay.treatment}",
@@ -94,34 +95,37 @@ class PlantCard extends StatelessWidget {
                             fontSize: 17.0,
                             fontFamily: 'RobotoLight',
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffeeeeee)),
+                            color: Color.fromRGBO(47, 79, 79, 1.0)),
                         textAlign: TextAlign.justify,
-                      )),
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text("Reference Link:",
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      "Reference Link:",
                       style: TextStyle(
                           fontSize: 25.0,
                           fontFamily: 'RobotoMedium',
-                          color: Color(0xffeeeeee))),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
+                          color: Color.fromRGBO(47, 79, 79, 1.0)),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Link(
-                          target: LinkTarget.blank,
-                          uri: Uri.parse("${_plantDisplay.link}"),
-                          builder: ((context, followLink) => TextButton(
+                        target: LinkTarget.blank,
+                        uri: Uri.parse("${_plantDisplay.link}"),
+                        builder: ((context, followLink) => TextButton(
                               onPressed: followLink,
                               child: Text(
                                 "${_plantDisplay.link}",
@@ -129,14 +133,18 @@ class PlantCard extends StatelessWidget {
                                     fontSize: 15.0,
                                     fontFamily: 'RobotoLight',
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: Color.fromRGBO(47, 79, 79, 1.0),
                                     decoration: TextDecoration.underline),
                                 textAlign: TextAlign.justify,
-                              ))))),
-                )
-              ],
-            ),
-          ]),
+                              ),
+                            )),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

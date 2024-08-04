@@ -24,19 +24,21 @@ class _SecondPageState extends State<SecondPage> {
     final String pname = widget.plantname;
     return Scaffold(
         appBar: AppBar(
-          iconTheme:
-              const IconThemeData(color: Color.fromRGBO(102, 204, 102, 1.0)),
+          iconTheme: const IconThemeData(color: Colors.white),
           centerTitle: true,
           title: Text(
             "Diseases of $pname",
             style: const TextStyle(
-                color: Color.fromRGBO(102, 204, 102, 1.0),
-                fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: "RobotoBold"),
           ),
-          backgroundColor: Colors.white,
-          shadowColor: const Color.fromARGB(255, 95, 94, 94),
+          backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
+          shadowColor: const Color(0xffeeeeee),
         ),
         body: SafeArea(
+            child: Container(
+          color: const Color(0xffeeeeee),
           child: ListView.builder(
             itemCount: _plantdiseaseList.length,
             itemBuilder: (context, index) {
@@ -44,7 +46,7 @@ class _SecondPageState extends State<SecondPage> {
             },
             padding: const EdgeInsets.only(top: 10),
           ),
-        ));
+        )));
   }
 
   Future getPlantDiseaseList() async {

@@ -19,6 +19,27 @@ class _mainPageState extends State<mainPage> {
     const FeedbackPage()
   ];
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'PicLeaf requires an internet connection to get the latest updates.',
+              style: TextStyle(
+                color: Color.fromRGBO(255, 255, 255, 1.0),
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              )),
+          backgroundColor: Color.fromRGBO(47, 79, 79, 1.0),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    });
+  }
+
   void onTap(int index) {
     setState(() {
       currentIndex = index;
@@ -31,11 +52,11 @@ class _mainPageState extends State<mainPage> {
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // Fixed
-        backgroundColor: Color.fromRGBO(255, 255, 255, 1.0),
+        backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
         onTap: onTap,
         currentIndex: currentIndex,
-        selectedItemColor: const Color.fromRGBO(75, 175, 78, 1.0),
-        unselectedItemColor: const Color.fromRGBO(102, 124, 138, 1.0),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: const Color.fromRGBO(47, 79, 79, 1.0),
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(

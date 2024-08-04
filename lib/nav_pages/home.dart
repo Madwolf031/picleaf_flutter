@@ -19,13 +19,40 @@ const List<String> plants = [
 ];
 
 class CustomSearchDelegate extends SearchDelegate {
-  // Demo list to show querying
-
-  CustomSearchDelegate({String hinttext = "Search plants here"})
+  CustomSearchDelegate({String hinttext = "Search topics here..."})
       : super(searchFieldLabel: hinttext);
 
-  // first overwrite to
-  // clear the search text
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      brightness: Brightness.light, // Change background color to black
+      primaryColor: const Color.fromRGBO(47, 79, 79, 1.0),
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromRGBO(102, 204, 102, 1.0)),
+
+      textTheme: const TextTheme(
+        titleLarge: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        filled: true,
+        fillColor: Color.fromRGBO(
+            102, 204, 102, 1.0), // Green color for the search field background
+        hintStyle: TextStyle(color: Colors.white), // Color for the hint text
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -33,23 +60,27 @@ class CustomSearchDelegate extends SearchDelegate {
         onPressed: () {
           query = '';
         },
-        icon: const Icon(Icons.clear),
+        icon: const Icon(
+          Icons.clear,
+          color: Colors.white,
+        ),
       ),
     ];
   }
 
-  // second overwrite to pop out of search menu
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: () {
         close(context, null);
       },
-      icon: const Icon(Icons.arrow_back),
+      icon: const Icon(
+        Icons.arrow_back,
+        color: Colors.white,
+      ),
     );
   }
 
-  // third overwrite to show query result
   @override
   Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
@@ -65,7 +96,9 @@ class CustomSearchDelegate extends SearchDelegate {
         return ListTile(
           title: Text(
             result,
-            style: const TextStyle(fontFamily: 'RobotoMedium'),
+            style: const TextStyle(
+                fontFamily: 'RobotoMedium',
+                color: Color.fromRGBO(47, 79, 79, 1.0)),
           ),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -76,8 +109,6 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 
-  // last overwrite to show the
-  // querying process at the runtime
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
@@ -93,7 +124,9 @@ class CustomSearchDelegate extends SearchDelegate {
         return ListTile(
           title: Text(
             result,
-            style: const TextStyle(fontFamily: 'RobotoMedium'),
+            style: const TextStyle(
+                fontFamily: 'RobotoMedium',
+                color: Color.fromRGBO(47, 79, 79, 1.0)),
           ),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -133,102 +166,68 @@ class _HomePageState extends State<homePage> {
         centerTitle: true,
         title: const Text(
           "PicLeaf",
-          style: TextStyle(
-              color: Color.fromRGBO(102, 204, 102, 1.0),
-              fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
-        shadowColor: const Color.fromRGBO(95, 94, 94, 1.0),
+        backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
+        shadowColor: const Color(0xffeeeeee),
         actions: [
           IconButton(
             onPressed: () {
-              // method to show the search bar
-              showSearch(
-                  context: context,
-                  // delegate to customize the search bar
-                  delegate: CustomSearchDelegate());
+              showSearch(context: context, delegate: CustomSearchDelegate());
             },
-            icon: const Icon(Icons.search,
-                color: Color.fromRGBO(102, 204, 102, 1.0)),
+            icon: const Icon(Icons.search, color: Colors.white),
           )
         ],
       ),
       backgroundColor: const Color(0xffeeeeee),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-              child: const Text(
-                'Take a pic!',
-                style: TextStyle(
-                    fontSize: 35,
-                    fontFamily: 'RobotoBold',
-                    color: Colors.black),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child: const Text('Find out what is wrong with your plant!',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'RobotoMedium',
-                      color: Color.fromRGBO(102, 124, 138, 1.0)),
-                  textAlign: TextAlign.left),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 900,
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                    Color.fromRGBO(157, 222, 157, 1),
-                    Color.fromRGBO(50, 155, 50, 1),
-                    Color.fromRGBO(22, 95, 22, 1)
-                  ])),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverPadding(
+            padding: const EdgeInsets.all(20),
+            sliver: SliverToBoxAdapter(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                    margin: const EdgeInsets.symmetric(horizontal: 0),
-                    child: const Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                          child: Text('List of Plants',
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontFamily: 'RobotoBold',
-                                  color: Color(0xffeeeeee)),
-                              textAlign: TextAlign.center),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    'Take a pic!',
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.1,
+                        fontFamily: 'RobotoBold',
+                        color: const Color.fromRGBO(102, 204, 102, 1.0)),
+                    textAlign: TextAlign.left,
                   ),
-                  GridView.count(
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(8.0),
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      childAspectRatio:
-                          MediaQuery.of(context).size.height / 950,
-                      crossAxisCount: 2,
-                      children: getPlantList()),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Find out what is wrong with your plant!',
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontFamily: 'RobotoMedium',
+                        color: const Color.fromRGBO(47, 79, 79, 1.0)),
+                    textAlign: TextAlign.left,
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(8.0),
+            sliver: SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return getPlantList()[index];
+                },
+                childCount: plants.length,
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: (MediaQuery.of(context).size.width / 2) /
+                    (MediaQuery.of(context).size.height / 3),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

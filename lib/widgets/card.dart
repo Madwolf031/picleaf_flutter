@@ -15,7 +15,7 @@ class ListViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: const Color.fromRGBO(100, 175, 78, 1.0),
+      color: const Color.fromRGBO(255, 255, 255, 1.0),
       elevation: 15,
       margin: const EdgeInsets.all(8),
       semanticContainer: true,
@@ -52,7 +52,7 @@ class ListViewCard extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 19,
                         fontFamily: 'RobotoMedium',
-                        color: Color.fromRGBO(102, 204, 102, 1.0)), // textstyle
+                        color: Color.fromRGBO(47, 79, 79, 1.0)), // textstyle
                   ),
                 ),
               ),

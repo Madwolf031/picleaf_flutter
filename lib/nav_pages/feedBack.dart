@@ -1,7 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SimpleDialog extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -11,14 +13,25 @@ class SimpleDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Feedback Sent'),
+      backgroundColor: const Color.fromRGBO(248, 248, 248, 1.0),
+      title: const Text('Feedback Sent',
+          style: TextStyle(
+            color: Color.fromRGBO(102, 204, 102, 1.0),
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          )),
       content: Text(title),
       actions: [
         TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('OK'))
+            child: const Text('OK',
+                style: TextStyle(
+                  color: Color.fromRGBO(102, 204, 102, 1.0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                )))
       ],
     );
   }
@@ -36,22 +49,47 @@ class _FeedbackPageState extends State<FeedbackPage> {
   final emailOfuser = TextEditingController();
   final messageOfuser = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final Uri fb = Uri.parse('https://www.facebook.com/picleafapp');
+  final Uri mail = Uri.parse('mailto:picleafcontactus@gmail.com');
 
-  List<bool> isTypeSelected = [false, false, false, true, true];
+  Future<void> _launchfbUrl() async {
+    if (!await launchUrl(fb, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $fb');
+    }
+  }
+
+  Future<void> _launchmailUrl() async {
+    if (!await launchUrl(mail)) {
+      throw Exception('Could not launch $mail');
+    }
+  }
+
+  String sanitizeDocumentId(String name) {
+    // Replace spaces with underscores and remove any non-alphanumeric characters
+    return name.trim().replaceAll(' ', '_').replaceAll(RegExp(r'[^\w]'), '');
+  }
+
+  String formatDate(DateTime dateTime) {
+    String month = dateTime.month.toString().padLeft(2, '0');
+    String day = dateTime.day.toString().padLeft(2, '0');
+    String year = dateTime.year.toString().substring(2); // Get last two digits
+    String hour = dateTime.hour.toString().padLeft(2, '0');
+    String minute = dateTime.minute.toString().padLeft(2, '0');
+    String second = dateTime.second.toString().padLeft(2, '0');
+    return "$month$day$year$hour$minute$second";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // AppBar para sa taas ng design
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
             "PicLeaf",
-            style: TextStyle(
-                color: Color.fromRGBO(102, 204, 102, 1.0),
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Colors.white,
-          shadowColor: const Color.fromRGBO(95, 94, 94, 1.0),
+          backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
+          shadowColor: const Color(0xffeeeeee),
         ),
 
         //body of the application
@@ -71,11 +109,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(102, 204, 102, 1.0)),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
-                "Give us your feedback!",
+                "Give me your feedback!",
                 style: TextStyle(
                   fontSize: 18.0,
                   fontFamily: 'RobotoMedium',
+                  color: Color.fromRGBO(47, 79, 79, 1.0),
                 ),
               ),
               const SizedBox(
@@ -112,7 +154,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         controller: emailOfuser,
                         decoration: const InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Color.fromRGBO(248, 248, 248, 1.0),
                           hintText: "Email",
                           border: OutlineInputBorder(),
                         ),
@@ -139,13 +181,24 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         maxLines: 5,
                         decoration: const InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Color.fromRGBO(248, 248, 248, 1.0),
                           hintText: "Message",
                           border: OutlineInputBorder(),
                         ),
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(150),
                         ],
+                        buildCounter: (BuildContext context,
+                            {required int currentLength,
+                            required int? maxLength,
+                            required bool isFocused}) {
+                          return Text(
+                            '$currentLength/$maxLength',
+                            style: const TextStyle(
+                                fontFamily: 'RobotoMedium',
+                                color: Color.fromRGBO(47, 79, 79, 1.0)),
+                          );
+                        },
                         validator: (messageOfuser) {
                           if (messageOfuser == null || messageOfuser.isEmpty) {
                             return 'Please enter a message.';
@@ -156,22 +209,36 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       const SizedBox(height: 8.0),
                       MaterialButton(
                         height: 50.0,
-                        minWidth: double.infinity,
-                        color: const Color.fromRGBO(75, 175, 78, 1.0),
+                        minWidth: MediaQuery.of(context).size.width / 2 -
+                            32.0, // Adjust the width to be half minus padding
+                        color: const Color.fromRGBO(248, 248, 248, 1.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          side: const BorderSide(
+                            color: Colors.white,
+                            width: 1,
+                          ),
+                        ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const SimpleDialog(
-                                      'Your feedback has been submitted.');
-                                });
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const SimpleDialog(
+                                    'Your feedback has been submitted.');
+                              },
+                            );
                             Map<String, dynamic> data = {
                               "Name": nameOfuser.text,
                               "Email": emailOfuser.text,
                               "Message": messageOfuser.text,
                               "Time": FieldValue.serverTimestamp(),
                             };
+                            String sanitizedUserName =
+                                sanitizeDocumentId(nameOfuser.text);
+                            String formattedDate = formatDate(DateTime.now());
+                            String documentId =
+                                "${sanitizedUserName}_$formattedDate";
                             setState(() {
                               nameOfuser.clear();
                               emailOfuser.clear();
@@ -179,7 +246,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             });
                             FirebaseFirestore.instance
                                 .collection("FeedbackMessages")
-                                .add(data);
+                                .doc(documentId)
+                                .set(data);
                           }
                         },
                         child: const Text(
@@ -187,89 +255,77 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           style: TextStyle(
                             fontFamily: 'RobotoBold',
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color.fromRGBO(47, 79, 79, 1.0),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                        child: const Text(
-                          'Contact Us!',
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontFamily: 'RobotoBold',
-                              color: Color.fromRGBO(102, 204, 102, 1.0)),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Container(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              margin: const EdgeInsets.symmetric(horizontal: 0),
-                              child: Link(
-                                  target: LinkTarget.blank,
-                                  uri: Uri.parse(
-                                      'https://www.facebook.com/picleafapp'),
-                                  builder: ((context, followLink) =>
-                                      TextButton.icon(
-                                        // <-- TextButton
-                                        onPressed: followLink,
-                                        icon: const Icon(
-                                          Icons.facebook,
-                                          color: Colors.black,
-                                          size: 40.0,
-                                        ),
-
-                                        label: const Text(
-                                          'PicLeaf',
-                                          style: TextStyle(
-                                              fontFamily: 'RobotoMedium',
-                                              fontSize: 20),
-                                        ),
-
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Colors.black,
-                                        ),
-                                      )))),
-                          Container(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-                              margin: const EdgeInsets.symmetric(horizontal: 0),
-                              child: Link(
-                                  target: LinkTarget.blank,
-                                  uri: Uri.parse(
-                                      'mailto:picleafcontactus@gmail.com'),
-                                  builder: ((context, followLink) =>
-                                      TextButton.icon(
-                                        // <-- TextButton
-                                        onPressed: followLink,
-                                        icon: const Icon(
-                                          Icons.email,
-                                          color: Colors.black,
-                                          size: 40.0,
-                                        ),
-
-                                        label: const Text(
-                                          'PicLeaf Support',
-                                          style: TextStyle(
-                                              fontFamily: 'RobotoMedium',
-                                              fontSize: 20),
-                                        ),
-
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Colors.black,
-                                        ),
-                                      ))) /**/
-                              ),
-                        ],
                       )
                     ],
                   ),
                 ),
               ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: const Text(
+                  'Contact Us!',
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: 'RobotoBold',
+                      color: Color.fromRGBO(102, 204, 102, 1.0)),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextButton.icon(
+                          onPressed: _launchfbUrl,
+                          icon: const Icon(
+                            Icons.facebook,
+                            color: Color.fromRGBO(47, 79, 79, 1.0),
+                            size: 40.0,
+                          ),
+                          label: const Text(
+                            'Facebook',
+                            style: TextStyle(
+                              fontFamily: 'RobotoMedium',
+                              fontSize: 20,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                const Color.fromRGBO(47, 79, 79, 1.0),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextButton.icon(
+                          onPressed: _launchmailUrl,
+                          icon: const Icon(
+                            Icons.email_rounded,
+                            color: Color.fromRGBO(47, 79, 79, 1.0),
+                            size: 40.0,
+                          ),
+                          label: const Text(
+                            'Gmail',
+                            style: TextStyle(
+                              fontFamily: 'RobotoMedium',
+                              fontSize: 20,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                const Color.fromRGBO(47, 79, 79, 1.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
             ],
           ),
         ));
