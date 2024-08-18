@@ -12,17 +12,19 @@ class mainPage extends StatefulWidget {
 }
 
 class _mainPageState extends State<mainPage> {
-  List pages = [
+  final List<Widget> pages = [
     const homePage(),
     const cameraPage(),
     const AboutUsPage(),
-    const FeedbackPage()
+    const FeedbackPage(),
   ];
   int currentIndex = 0;
+  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -40,7 +42,18 @@ class _mainPageState extends State<mainPage> {
     });
   }
 
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   void onTap(int index) {
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
     setState(() {
       currentIndex = index;
     });
@@ -49,7 +62,33 @@ class _mainPageState extends State<mainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex],
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "PicLeaf",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
+        shadowColor: const Color(0xffeeeeee),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            },
+            icon: const Icon(Icons.search, color: Colors.white),
+          )
+        ],
+      ),
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // Fixed
         backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),

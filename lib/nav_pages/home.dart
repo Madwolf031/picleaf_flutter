@@ -25,11 +25,10 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
-      brightness: Brightness.light, // Change background color to black
+      brightness: Brightness.light,
       primaryColor: const Color.fromRGBO(47, 79, 79, 1.0),
       appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromRGBO(102, 204, 102, 1.0)),
-
       textTheme: const TextTheme(
         titleLarge: TextStyle(
           color: Colors.white,
@@ -37,9 +36,8 @@ class CustomSearchDelegate extends SearchDelegate {
       ),
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,
-        fillColor: Color.fromRGBO(
-            102, 204, 102, 1.0), // Green color for the search field background
-        hintStyle: TextStyle(color: Colors.white), // Color for the hint text
+        fillColor: Color.fromRGBO(102, 204, 102, 1.0),
+        hintStyle: TextStyle(color: Colors.white),
         border: OutlineInputBorder(
           borderSide: BorderSide.none,
         ),
@@ -139,7 +137,6 @@ class CustomSearchDelegate extends SearchDelegate {
 }
 
 class _HomePageState extends State<homePage> {
-  //Para ito sa shortcut for the List of Plants
   List<Widget> getPlantList() {
     List<Widget> plantitems = [];
     for (int i = 0; i < plants.length; i++) {
@@ -158,27 +155,9 @@ class _HomePageState extends State<homePage> {
     return plantitems;
   }
 
-//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "PicLeaf",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
-        shadowColor: const Color(0xffeeeeee),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showSearch(context: context, delegate: CustomSearchDelegate());
-            },
-            icon: const Icon(Icons.search, color: Colors.white),
-          )
-        ],
-      ),
       backgroundColor: const Color(0xffeeeeee),
       body: CustomScrollView(
         slivers: <Widget>[

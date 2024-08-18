@@ -99,15 +99,6 @@ class _CameraPageState extends State<cameraPage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "PicLeaf",
-          style: TextStyle(color: Colors.white, fontFamily: 'RobotoBold'),
-        ),
-        backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
-        shadowColor: const Color(0xffeeeeee),
-      ),
       backgroundColor: const Color(0xffeeeeee),
       body: SingleChildScrollView(
         child: Column(
@@ -166,7 +157,7 @@ class _CameraPageState extends State<cameraPage> {
                                                         .size
                                                         .width /
                                                     2 -
-                                                32.0, // Adjust the width to be half minus padding
+                                                32.0,
                                             color: const Color.fromRGBO(
                                                 102, 204, 102, 1.0),
                                             shape: RoundedRectangleBorder(

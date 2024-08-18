@@ -65,14 +65,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
   }
 
   String sanitizeDocumentId(String name) {
-    // Replace spaces with underscores and remove any non-alphanumeric characters
     return name.trim().replaceAll(' ', '_').replaceAll(RegExp(r'[^\w]'), '');
   }
 
   String formatDate(DateTime dateTime) {
     String month = dateTime.month.toString().padLeft(2, '0');
     String day = dateTime.day.toString().padLeft(2, '0');
-    String year = dateTime.year.toString().substring(2); // Get last two digits
+    String year = dateTime.year.toString().substring(2);
     String hour = dateTime.hour.toString().padLeft(2, '0');
     String minute = dateTime.minute.toString().padLeft(2, '0');
     String second = dateTime.second.toString().padLeft(2, '0');
@@ -82,17 +81,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            "PicLeaf",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: const Color.fromRGBO(102, 204, 102, 1.0),
-          shadowColor: const Color(0xffeeeeee),
-        ),
-
-        //body of the application
         backgroundColor: const Color(0xffeeeeee),
         body: SingleChildScrollView(
           child: Column(
@@ -209,8 +197,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       const SizedBox(height: 8.0),
                       MaterialButton(
                         height: 50.0,
-                        minWidth: MediaQuery.of(context).size.width / 2 -
-                            32.0, // Adjust the width to be half minus padding
+                        minWidth: MediaQuery.of(context).size.width / 2 - 32.0,
                         color: const Color.fromRGBO(248, 248, 248, 1.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
